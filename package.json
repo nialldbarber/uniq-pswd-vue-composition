@@ -1,0 +1,22 @@
+{
+	"name": "password-generato",
+	"version": "0.0.0",
+	"scripts": {
+		"dev": "vite",
+		"build": "vue-tsc --noEmit && vite build",
+		"serve": "vite preview"
+	},
+	"dependencies": {
+		"@vanilla-extract/css": "^1.6.0",
+		"@vanilla-extract/vite-plugin": "^2.0.2",
+		"vue": "^3.2.6"
+	},
+	"devDependencies": {
+		"@vitejs/plugin-vue": "^1.7.1",
+		"@vue/compiler-sfc": "^3.2.6",
+		"prettier": "^2.4.1",
+		"typescript": "^4.3.2",
+		"vite": "^2.5.4",
+		"vue-tsc": "^0.2.2"
+	}
+}
