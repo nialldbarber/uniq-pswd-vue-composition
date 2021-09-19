@@ -2,9 +2,12 @@
 import {ref, computed, Ref} from 'vue';
 import {generatePassword} from './utils/password';
 import {handleBackgroundChange} from './utils/background';
+import {copyToClipboard} from './utils/copy-to-clipboard';
 import * as bgStyles from './styles/background.css';
 import * as headingStyles from './styles/typography.css';
 import * as inputStyles from './styles/input.css';
+import * as buttonStyles from './styles/button.css';
+import * as popupStyles from './styles/popup.css';
 import battery from './assets/battery_charging_full_black_24dp.svg';
 import verified from './assets/verified_user_black_24dp.svg';
 import error from './assets/error_outline_black_24dp.svg';
@@ -16,6 +19,8 @@ const range = ref<number>(12);
 const letter = ref<boolean>(true);
 const number = ref<boolean>(true);
 const symbol = ref<boolean>(false);
+
+const isCopied = ref<boolean>(false);
 
 const generatedPassword = computed<string>(() =>
   generatePassword(range.value, letter.value, number.value, symbol.value)
@@ -53,6 +58,13 @@ const PASSWORD_DETAILS: RecStr = {
 };
 
 const FALLBACK = 'No password is a bad password 😡';
+
+function setCopied() {
+  isCopied.value = true;
+  setTimeout(() => {
+    isCopied.value = false;
+  }, 1000);
+}
 </script>
 
 <template>
@@ -95,6 +107,14 @@ const FALLBACK = 'No password is a bad password 😡';
         <input type="checkbox" id="symbols" @click="symbol = !symbol" />
         <label for="symbols">Symbols (@&$!#?)</label>
       </div>
+      <button
+        :class="buttonStyles.button"
+        @click="[copyToClipboard(generatedPassword), setCopied()]"
+        title="Copy password"
+      >
+        Copy password
+      </button>
+      <div v-if="isCopied" :class="popupStyles.popup">Copied</div>
     </div>
   </div>
 </template>
