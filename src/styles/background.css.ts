@@ -14,6 +14,10 @@ export const wrapper = style({
   height: '100vh',
 });
 
+export const backgroundContainer = style({
+  height: '100%',
+});
+
 export const mainBackground = style({
   position: 'relative',
   display: 'flex',

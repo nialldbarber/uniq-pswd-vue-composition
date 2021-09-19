@@ -8,6 +8,10 @@ globalStyle('input, label, button', {
   cursor: 'pointer',
 });
 
+globalStyle('#app', {
+  height: '100vh',
+});
+
 globalStyle('html, body', {
   position: 'fixed',
   overflow: 'hidden',

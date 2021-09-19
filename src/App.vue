@@ -48,7 +48,12 @@ const FALLBACK = 'No password is a bad password 😡';
 </script>
 
 <template>
-  <div :class="bgStyles.backgroundVariant[background]">
+  <div
+    :class="[
+      bgStyles.backgroundVariant[background],
+      bgStyles.backgroundContainer,
+    ]"
+  >
     <div :class="bgStyles.mainBackground">
       <p :class="headingStyles.heading">{{ generatedPassword || FALLBACK }}</p>
 
@@ -68,9 +73,12 @@ const FALLBACK = 'No password is a bad password 😡';
       <input type="range" min="0" max="40" v-model="range" />
       <p>Length ({{ range }})</p>
       <div>
-        <button @click="letter = !letter">Letters (e.g. Aa)</button>
-        <button @click="number = !number">Digits (e.g. 345)</button>
-        <button @click="symbol = !symbol">Symbols (@&$!#?)</button>
+        <input type="checkbox" id="letters" @click="letter = !letter" />
+        <label for="letters">Letters (e.g. Aa)</label>
+        <input type="checkbox" id="digits" @click="number = !number" />
+        <label for="digits">Digits (e.g. 345)</label>
+        <input type="checkbox" id="symbols" @click="symbol = !symbol" />
+        <label for="symbols">Symbols (@&$!#?)</label>
       </div>
     </div>
   </div>
