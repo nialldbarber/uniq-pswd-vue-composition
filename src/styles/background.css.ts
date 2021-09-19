@@ -16,6 +16,10 @@ export const wrapper = style({
 
 export const backgroundContainer = style({
   height: '100%',
+  display: 'flex',
+  width: '100%',
+  justifyContent: 'center',
+  alignItems: 'center',
 });
 
 export const mainBackground = style({
@@ -25,6 +29,7 @@ export const mainBackground = style({
   flexDirection: 'column',
   justifyContent: 'center',
   height: 300,
+  width: '100%',
   padding: '2.5rem 5rem',
 
   '@media': {

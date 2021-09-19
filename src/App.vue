@@ -1,13 +1,16 @@
 <script setup lang="ts">
-import {ref, computed} from 'vue';
+import {ref, computed, Ref} from 'vue';
 import {generatePassword} from './utils/password';
 import {handleBackgroundChange} from './utils/background';
 import * as bgStyles from './styles/background.css';
 import * as headingStyles from './styles/typography.css';
+import * as inputStyles from './styles/input.css';
 import battery from './assets/battery_charging_full_black_24dp.svg';
 import verified from './assets/verified_user_black_24dp.svg';
 import error from './assets/error_outline_black_24dp.svg';
 import warning from './assets/warning_black_24dp.svg';
+
+type RecStr = Record<string, string>;
 
 const range = ref<number>(12);
 const letter = ref<boolean>(true);
@@ -20,7 +23,12 @@ const generatedPassword = computed<string>(() =>
 
 const background = computed<string>(() => handleBackgroundChange(range.value));
 
-type RecStr = Record<string, string>;
+const linearGrad = computed<string>(
+  () =>
+    `linear-gradient(to right, rgb(255, 255, 255) ${
+      (range.value as any) * 2.5
+    }%, rgba(255, 255, 255, 0.4) 0%)`
+);
 
 const PASSWORD_STRENGTH: RecStr = {
   mega: 'Mega',
@@ -57,11 +65,11 @@ const FALLBACK = 'No password is a bad password 😡';
     <div :class="bgStyles.mainBackground">
       <p :class="headingStyles.heading">{{ generatedPassword || FALLBACK }}</p>
 
-      <p
-        :class="headingStyles.subheader"
-        title="{PASSWORD_DETAILS[background]}"
-      >
-        <img :src="PASSWORD_STRENGTH_LOGO[background]" alt="" />
+      <p :class="headingStyles.subheader" title="PASSWORD_DETAILS[background]">
+        <img
+          :src="PASSWORD_STRENGTH_LOGO[background]"
+          :alt="PASSWORD_STRENGTH_LOGO[background]"
+        />
         <span
           :class="headingStyles.labelStrength"
           :title="PASSWORD_DETAILS[background]"
@@ -70,7 +78,14 @@ const FALLBACK = 'No password is a bad password 😡';
         </span>
       </p>
 
-      <input type="range" min="0" max="40" v-model="range" />
+      <input
+        type="range"
+        :class="inputStyles.input"
+        :style="{background: linearGrad}"
+        min="0"
+        max="40"
+        v-model="range"
+      />
       <p>Length ({{ range }})</p>
       <div>
         <input type="checkbox" id="letters" @click="letter = !letter" />
