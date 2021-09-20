@@ -107,19 +107,34 @@ function setCopied() {
       </label>
       <div :class="bgStyles.buttonBackground">
         <div :class="headingStyles.buttonText">
-          <input type="checkbox" id="letters" @click="letter = !letter" />
+          <input
+            type="checkbox"
+            :checked="letter"
+            id="letters"
+            @click="letter = !letter"
+          />
           <label for="letters" :class="headingStyles.labelText"
             >Letters (e.g. Aa)</label
           >
         </div>
         <div :class="headingStyles.buttonText">
-          <input type="checkbox" id="digits" @click="number = !number" />
-          <label for="digits" :class="headingStyles.labelText"
+          <input
+            type="checkbox"
+            :checked="number"
+            id="numbers"
+            @click="number = !number"
+          />
+          <label for="numbers" :class="headingStyles.labelText"
             >Digits (e.g. 345)</label
           >
         </div>
         <div :class="headingStyles.buttonText">
-          <input type="checkbox" id="symbols" @click="symbol = !symbol" />
+          <input
+            type="checkbox"
+            :checked="symbol"
+            id="symbols"
+            @click="symbol = !symbol"
+          />
           <label for="symbols" :class="headingStyles.labelText"
             >Symbols (@&$!#?)</label
           >
