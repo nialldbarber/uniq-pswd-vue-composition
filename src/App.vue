@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {ref, computed, Ref} from 'vue';
+import {ref, computed} from 'vue';
 import {generatePassword} from './utils/password';
 import {handleBackgroundChange} from './utils/background';
 import {copyToClipboard} from './utils/copy-to-clipboard';
@@ -21,6 +21,7 @@ const number = ref<boolean>(true);
 const symbol = ref<boolean>(false);
 
 const isCopied = ref<boolean>(false);
+const pwLength = ref<boolean>(true);
 
 const generatedPassword = computed<string>(() =>
   generatePassword(range.value, letter.value, number.value, symbol.value)
@@ -34,6 +35,8 @@ const linearGrad = computed<string>(
       (range.value as any) * 2.5
     }%, rgba(255, 255, 255, 0.4) 0%)`
 );
+
+const opacity = computed<number>(() => (pwLength.value ? 1 : 0));
 
 const PASSWORD_STRENGTH: RecStr = {
   mega: 'Mega',
@@ -77,7 +80,7 @@ function setCopied() {
     <div :class="bgStyles.mainBackground">
       <p :class="headingStyles.heading">{{ generatedPassword || FALLBACK }}</p>
 
-      <p :class="headingStyles.subheader" title="PASSWORD_DETAILS[background]">
+      <p :class="headingStyles.subheader" :title="PASSWORD_DETAILS[background]">
         <img
           :src="PASSWORD_STRENGTH_LOGO[background]"
           :alt="PASSWORD_STRENGTH_LOGO[background]"
@@ -92,20 +95,35 @@ function setCopied() {
 
       <input
         type="range"
+        id="range"
         :class="inputStyles.input"
         :style="{background: linearGrad}"
         min="0"
         max="40"
         v-model="range"
       />
-      <p>Length ({{ range }})</p>
-      <div>
-        <input type="checkbox" id="letters" @click="letter = !letter" />
-        <label for="letters">Letters (e.g. Aa)</label>
-        <input type="checkbox" id="digits" @click="number = !number" />
-        <label for="digits">Digits (e.g. 345)</label>
-        <input type="checkbox" id="symbols" @click="symbol = !symbol" />
-        <label for="symbols">Symbols (@&$!#?)</label>
+      <label :class="headingStyles.label" :style="{opacity}" for="range">
+        Length ({{ range }})
+      </label>
+      <div :class="bgStyles.buttonBackground">
+        <div :class="headingStyles.buttonText">
+          <input type="checkbox" id="letters" @click="letter = !letter" />
+          <label for="letters" :class="headingStyles.labelText"
+            >Letters (e.g. Aa)</label
+          >
+        </div>
+        <div :class="headingStyles.buttonText">
+          <input type="checkbox" id="digits" @click="number = !number" />
+          <label for="digits" :class="headingStyles.labelText"
+            >Digits (e.g. 345)</label
+          >
+        </div>
+        <div :class="headingStyles.buttonText">
+          <input type="checkbox" id="symbols" @click="symbol = !symbol" />
+          <label for="symbols" :class="headingStyles.labelText"
+            >Symbols (@&$!#?)</label
+          >
+        </div>
       </div>
       <button
         :class="buttonStyles.button"

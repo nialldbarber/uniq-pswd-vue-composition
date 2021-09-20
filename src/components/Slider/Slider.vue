@@ -15,3 +15,4 @@ const {range} = toRefs(props);
 <template>
   <input type="range" min="0" max="40" v-model="range" />
 </template>
+ 
