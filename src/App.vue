@@ -3,15 +3,16 @@ import {ref, computed} from 'vue';
 import {generatePassword} from './utils/password';
 import {handleBackgroundChange} from './utils/background';
 import {copyToClipboard} from './utils/copy-to-clipboard';
+import Checkbox from './components/Checkbox/Checkbox.vue';
 import * as bgStyles from './styles/background.css';
 import * as headingStyles from './styles/typography.css';
 import * as inputStyles from './styles/input.css';
 import * as buttonStyles from './styles/button.css';
 import * as popupStyles from './styles/popup.css';
-import battery from './assets/battery_charging_full_black_24dp.svg';
-import verified from './assets/verified_user_black_24dp.svg';
-import error from './assets/error_outline_black_24dp.svg';
-import warning from './assets/warning_black_24dp.svg';
+import battery from './assets/battery.svg';
+import verified from './assets/verified-user.svg';
+import error from './assets/error.svg';
+import warning from './assets/warning.svg';
 
 type RecStr = Record<string, string>;
 
@@ -68,6 +69,10 @@ function setCopied() {
     isCopied.value = false;
   }, 1000);
 }
+
+function toggleType(type: any) {
+  return !type.value;
+}
 </script>
 
 <template>
@@ -106,17 +111,12 @@ function setCopied() {
         Length ({{ range }})
       </label>
       <div :class="bgStyles.buttonBackground">
-        <div :class="headingStyles.buttonText">
-          <input
-            type="checkbox"
-            :checked="letter"
-            id="letters"
-            @click="letter = !letter"
-          />
-          <label for="letters" :class="headingStyles.labelText"
-            >Letters (e.g. Aa)</label
-          >
-        </div>
+        <Checkbox
+          id="letters"
+          :type="letter"
+          label="Letters (e.g. Aa)"
+          :action="(letter = !letter)"
+        />
         <div :class="headingStyles.buttonText">
           <input
             type="checkbox"
