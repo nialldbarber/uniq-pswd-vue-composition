@@ -69,10 +69,6 @@ function setCopied() {
     isCopied.value = false;
   }, 1000);
 }
-
-function toggleType(type: any) {
-  return !type.value;
-}
 </script>
 
 <template>

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import {defineProps, defineEmits} from 'vue';
 import * as headingStyles from '../../styles/typography.css';
 
 const props = defineProps<{
@@ -6,6 +7,10 @@ const props = defineProps<{
   type: boolean;
   label: string;
   action: any;
+}>();
+
+const emit = defineEmits<{
+  (e: 'update', value: string): void;
 }>();
 </script>
 
