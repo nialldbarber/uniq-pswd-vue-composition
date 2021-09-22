@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import {defineProps, defineEmits} from 'vue';
 import * as headingStyles from '../../styles/typography.css';
 
 const props = defineProps<{

@@ -69,6 +69,10 @@ function setCopied() {
     isCopied.value = false;
   }, 1000);
 }
+
+function toggleType(type: any) {
+  return !type.value;
+}
 </script>
 
 <template>
@@ -107,12 +111,17 @@ function setCopied() {
         Length ({{ range }})
       </label>
       <div :class="bgStyles.buttonBackground">
-        <Checkbox
-          id="letters"
-          :type="letter"
-          label="Letters (e.g. Aa)"
-          :action="(letter = !letter)"
-        />
+        <div :class="headingStyles.buttonText">
+          <input
+            type="checkbox"
+            :checked="letter"
+            id="letters"
+            @click="letter = !letter"
+          />
+          <label for="letters" :class="headingStyles.labelText"
+            >Letters (e.g. Aa)</label
+          >
+        </div>
         <div :class="headingStyles.buttonText">
           <input
             type="checkbox"
